@@ -1,5 +1,6 @@
 'use strict';
 
+const Q = require('@nmq/q');
 /** Class representing a generic mongo model. */
 class Model {
 
@@ -7,6 +8,7 @@ class Model {
     this.schema = schema;
   }
 
+  // Q.publish 
   get(_id) {
     // Call the appropriate mongoose method to get
     if(_id) {
@@ -26,6 +28,7 @@ class Model {
 
     const newRecord = this.schema(record);
     return newRecord.save();
+    Q.publish('database', 'create', res )
   }
 
   update(_id, record) {

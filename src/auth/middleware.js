@@ -3,7 +3,7 @@
 const User = require('./users-model.js');
 
 module.exports = (req, res, next) => {
-  
+  // Handle Authorization HTTP header (basic and bearer)
   try {
     let [authType, authString] = req.headers.authorization.split(/\s+/);
     switch( authType.toLowerCase() ) {
@@ -51,4 +51,5 @@ module.exports = (req, res, next) => {
   function _authError() {
     next('Invalid User ID/Password');
   }
+
 };

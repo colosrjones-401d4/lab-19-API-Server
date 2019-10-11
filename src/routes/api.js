@@ -27,6 +27,7 @@ function handleGetAll(request,response,next) {
         results: data,
       };
       response.status(200).json(output);
+      
     })
     .catch( next );
 }

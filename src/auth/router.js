@@ -1,5 +1,8 @@
 'use strict';
 
+
+// route to users-model.js for authorization  
+
 const express = require('express');
 const authRouter = express.Router();
 
