@@ -1,57 +1,47 @@
-## Lab 9
+## API & Auth Server 
 
-### Steven Jones
+[![Build Status](https://travis-ci.org/colosrjones-401d4/lab-15.svg?branch=master)](https://travis-ci.org/colosrjones-401d4/lab-15)
+
+### Author: Steven Jones
 
 ### Links and Resources
-* [PR](https://github.com/colosrjones-401d4/lab-09/pull/1/)
+* [repo](https://github.com/colosrjones-401d4/lab-15)
+* [travis](https://travis-ci.org/colosrjones-401d4/lab-15)
 
-[![Build Status](https:)](http)
-
-* [heroku]()
-
-#### Documentation
-
-* [swagger](https://)
-
-* [jsdoc](https://)
 
 ### Setup
 #### `.env` requirements
-* Need to set the port (3000)
-* Need to add the connection string to the MONGODB_URI
-
-* `npm i`
+* `PORT` - 3000
+* `MONGODB_URI` - mongodb://localhost/db
+* `SECRET`
+* `GOOGLE_API_KEY`
+* `GOOGLE_CLIENT_ID`
+* `GOOGLE_CLIENT_SECRET`
 
 #### Running the app
-* `nodemon`
-* Endpoint: `/`
-* Endpoint: GET `api/v1/categories`
-  * Returns a JSON object with all categories in it.
-* Endpoint: POST `api/v1/categories/id`
-  * Create a JSON object as a category.
-* Endpoint: GET `api/v1/categories/id`
-  * Get a JSON category at that id.
-* Endpoint: Delete `api/v1/categories/id`
-  * Returns a JSON object with all categories in it.
-
-* Endpoint: GET `api/v1/player`
-  * Returns a JSON object with all players in it.
-* Endpoint: POST `api/v1/player/id`
-  * Create a JSON object as a player.
-* Endpoint: GET `api/v1/player/id`
-  * Get a JSON player at that id.
-* Endpoint: Delete `api/v1/player/id`
-  * Returns a JSON object with all player in it.
-
-
+* `npm run dbOn` - starts mongo
+* `npm start` - starts server
+* `POST /signup`
+  * takes in `{username: username, password: password, email: email, role: role}`
+  * returns a token. Token will only be able to be used one time; they also expire after 15 minutes (or specified time).
+* `POST /key`
+  * takes in `{username: username, password: password, email: email, role: role}`
+  * returns an auth key. It has no expiration time and is reusable.
+* `POST /signin`
+  * Basic - can sign in with username / password
+  * Bearer - can sign in with token
+  * Returns a new token
+* New protected routes:
+  * `router.get('/public-stuff')` should be visible by anyone
+  * `router.get('/hidden-stuff')` should require only a valid login
+  * `router.get('/something-to-read')` should require the read capability
+  * `router.post('/create-a-thing)` should require the create capability
+  * `router.put('/update)` should require the update capability
+  * `router.patch('/jp)` should require the update capability
+  * `router.delete('/bye-bye)` should require the delete capability
+  * `router.get('/everything')` should require the superuser capability
+  
 #### Tests
-* How do you run tests?
-  * `npm run test`
-  * `npm run lint`
-* Need to make sure that the requests to the database are correct.
-* Need to make sure that incorrect routes are handled.
-* Need to make sure server errors are handled/
-* Need to test validation of data.
-
-#### UML
-![UML](./assets/lab-09-UML.JPG)
+* `npm test`
+* Tests that each of the protected routes are successful given the user has appropriate capability
+* Tests that unauthorized users cannot access certain protected routes based on their capabilties
