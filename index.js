@@ -1,6 +1,12 @@
 'use strict';
 
-const alterFile = require('./app/app.js');
+require('dotenv').config();
+const mongoose = require('mongoose');
 
-const file = process.argv.slice(2).shift();
-alterFile(file);
+const mongooseOptions = {
+  useNewUrlParser:true,
+  useCreateIndex: true,
+};
+mongoose.connect(process.env.MONGODB_URI, mongooseOptions);
+
+require('./src/app').start(process.env.PORT);

@@ -1,95 +1,57 @@
-## Lab 19 | File Server
+## Lab 9
 
-### Author: Steven Jones
+### Steven Jones
 
 ### Links and Resources
-* [repo](https://github.com/)
+* [PR](https://github.com/colosrjones-401d4/lab-09/pull/1/)
 
-[![Build Status](https://travis-ci.org/)](https://travis-ci.org/)
+[![Build Status](https:)](http)
+
+* [heroku]()
 
 #### Documentation
-N/A
 
-### Modules
-`./index.js`
+* [swagger](https://)
 
-`./app/app.js`
-
-`./lib/read.js`
-
-`./lib/uppercase.js`
-
-`./lib/write.js`
-
------
-#### `./index.js`
-This is the entry point of the application that accepts the application's command line arguments for the `alterFile` function.
-
-#### `./app/app.js`
-##### Exported Values and Methods
-* `alterFile(file)` -> `undefined`
-* This function takes a filepath and uses the helper functions `read`, `uppercase`, and `write` to capitalize the letters in the file.
-
-It publishes `file-save` or `file-error` events to the `Q` server set in the environment at `QUEUE_SERVER`, depending upon the results of its operation.
-
------
-
-#### `./lib/read.js`
-##### Exported Values and Methods
-This module reads a file and returns a Promise that contains a file buffer.
-* `read(file)` -> `Promise` -> `buffer`
-
------
-
-#### `./lib/uppercase.js`
-##### Exported Values and Methods
-* `uppercase(data)` -> modified `data`
-This module takes a readable buffer or other input, converts it to a string, and capitalizes its letters. It returns a file buffer.
-
------
-
-#### `./lib/write.js`
-##### Exported Values and Methods
-* `write(file, text)` -> `Promise` -> side effect
-This module reads a file and returns a Promise. It writes a `file` with the given `text` as a side effect.
------
+* [jsdoc](https://)
 
 ### Setup
-#### `.env`
-* `QUEUE_SERVER` - The full URL and port of the `Q` server to which the app should publish events.
+#### `.env` requirements
+* Need to set the port (3000)
+* Need to add the connection string to the MONGODB_URI
+
+* `npm i`
 
 #### Running the app
-* `node index.js <fileName>` - to run the appln `<fileName>`, where `<fileName>` is the path to a readable file. 
+* `nodemon`
+* Endpoint: `/`
+* Endpoint: GET `api/v1/categories`
+  * Returns a JSON object with all categories in it.
+* Endpoint: POST `api/v1/categories/id`
+  * Create a JSON object as a category.
+* Endpoint: GET `api/v1/categories/id`
+  * Get a JSON category at that id.
+* Endpoint: Delete `api/v1/categories/id`
+  * Returns a JSON object with all categories in it.
+
+* Endpoint: GET `api/v1/player`
+  * Returns a JSON object with all players in it.
+* Endpoint: POST `api/v1/player/id`
+  * Create a JSON object as a player.
+* Endpoint: GET `api/v1/player/id`
+  * Get a JSON player at that id.
+* Endpoint: Delete `api/v1/player/id`
+  * Returns a JSON object with all player in it.
+
 
 #### Tests
 * How do you run tests?
   * `npm run test`
-  * `npm run test-watch`
   * `npm run lint`
-
-* What assertions were made?
-  * `./app/app.js`
-    * `alterFile` function
-      ✓ should not throw an error
-
-  * `./lib/read.js`
-    * `read` function
-      ✓ resolves when given a good file
-      ✓ throws an error when given a bad file
-
-  * `./lib/uppercase.js`
-    * `uppercase` function
-      ✓ should transform its argument text to uppercase (1ms)
-      ✓ should accept and return a buffer
-
-  * `./lib/write.js`
-    * `write` function
-      ✓ resolves when given a good file
-      ✓ rejects when given a bad file
-      ✓ rejects when given bad data
-
-* What assertions need to be / should be made?
-Additional integration testing between `alterFile` and the `@nmq/q` library might be performed.
+* Need to make sure that the requests to the database are correct.
+* Need to make sure that incorrect routes are handled.
+* Need to make sure server errors are handled/
+* Need to test validation of data.
 
 #### UML
-N/A
+![UML](./assets/lab-09-UML.JPG)

@@ -1,28 +1,47 @@
 {
-  "name": "lab-19-file-writer",
-  "version": "0.0.1",
-  "description": "file-writer-with-socket-queue",
+  "name": "api-server-solution",
+  "version": "1.0.0",
+  "description": "### Steven Jones",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint '**/*.js'",
-    "test": "jest --coverage --verbose"
+    "start": "node index.js",
+    "lint": "eslint **/*.js",
+    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json",
+    "test": "jest --verbose",
+    "test-watch": "jest --watchAll --verbose"
   },
-  "directories": {
-    "lib": "lib"
+  "jest": {
+    "testEnvironment": "node"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/colosrjones-401d4/lab-19-File-Writer.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/colosrjones-401d4/lab-19-File-Writer/issues"
-  },
-  "homepage": "https://github.com/colosrjones-401d4/lab-19-File-Writer#readme",
   "dependencies": {
-    "@nmq/q": "^1.0.5",
-    "jest": "^24.9.0"
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "eslint": "^6.5.0",
+    "express": "^4.17.1",
+    "express-swagger-generator": "^1.1.15",
+    "jest": "^24.8.0",
+    "mongodb-memory-server": "^5.1.5",
+    "mongoose": "^5.7.1",
+    "mongoose-schema-jsonschema": "^1.2.1",
+    "morgan": "^1.9.1",
+    "node": "^12.11.0",
+    "require-directory": "^2.1.1",
+    "supertest": "^4.0.2",
+    "uuid": "^3.3.3"
   },
-  "devDependencies": {}
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colosrjones-401d4/lab-09.git"
+  },
+  "bugs": {
+    "url": "https://github.com/colosrjones-401d4/lab-09/issues"
+  },
+  "homepage": "https://github.com/colosrjones-401d4/lab-09#readme"
 }
