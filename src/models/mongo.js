@@ -1,6 +1,6 @@
 'use strict';
 
-const Q = require('@nmq/q');
+const Q = require('../app.js').Q;
 /** Class representing a generic mongo model. */
 class Model {
 
@@ -8,36 +8,49 @@ class Model {
     this.schema = schema;
   }
 
-  // Q.publish 
+  /**
+   * Retrieves one or more records
+   * @param _id {string} optional mongo record id
+   * @returns {*}
+   */
   get(_id) {
-    // Call the appropriate mongoose method to get
-    if(_id) {
-      // If 1, return it as a plain object
-      return this.schema.findOne({_id});
-    } else {
-      // If 2, return it as an object like this:
-      return  this.schema.find({})
-        .then((foundItems) => {
-          // { count: ##, results: [{}, {}] }
-          return { count: foundItems.length, results: foundItems};
-        });
-    }
+    let queryObject = _id ? {_id} : {};
+    Q.publish('database', 'read', {action:'get'});
+    return this.schema.find(queryObject);
   }
 
-  create(record) {
-
-    const newRecord = this.schema(record);
+  /**
+   * Create a new record
+   * @param record {object} matches the format of the schema
+   * @returns {*}
+   */
+  post(record) {
+    let newRecord = new this.schema(record);
+    Q.publish('database', 'create', {action:'post',id:newRecord.id});
     return newRecord.save();
-    Q.publish('database', 'create', res )
   }
 
-  update(_id, record) {
-    return this.schema.findByIdAndUpdate(_id, record, {new: true});
+  /**
+   * Replaces a record in the database
+   * @param _id {string} Mongo Record ID
+   * @param record {object} The record data to replace. ID is a required field
+   * @returns {*}
+   */
+  put(_id, record) {
+    Q.publish('database', 'update', {action:'put',id:_id});
+    return this.schema.findByIdAndUpdate(_id, record, {new:true});
   }
 
+  /**
+   * Deletes a recod in the model
+   * @param _id {string} Mongo Record ID
+   * @returns {*}
+   */
   delete(_id) {
+    Q.publish('database', 'delete', {action:'delete',id:_id});
     return this.schema.findByIdAndDelete(_id);
   }
+
 }
 
 module.exports = Model;

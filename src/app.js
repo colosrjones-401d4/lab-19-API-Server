@@ -1,5 +1,7 @@
 'use strict';
 
+const Q = require('@nmq/q/client');
+
 // 3rd Party Resources
 const express = require('express');
 const cors = require('cors');
