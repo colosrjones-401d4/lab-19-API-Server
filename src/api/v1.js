@@ -1,66 +1,55 @@
 'use strict';
 
+const Q = require('@nmq/q/client');
+
+
 /**
  * API Router Module (V1)
  * Integrates with various models through a common Interface (.get(), .post(), .put(), .delete())
  * @module src/api/v1
  */
 
-const cwd = process.cwd(); // current working directory
+const cwd = process.cwd();
 
-/**
- * Express module
- * @const
- */
 const express = require('express');
 
-const swagger = require('swagger-ui-express');
-
 const modelFinder = require(`${cwd}/src/middleware/model-finder.js`);
-const auth = require(`${cwd}/src/auth/middleware.js`);
 
-const swaggerDocs = require(`${cwd}/docs/config/swagger.json`);
-
-/**
- * Express router to mount REST method functions on
- * @type {object}
- * @const
- * @namespace router
- */
 const router = express.Router();
 
 // Evaluate the model, dynamically
 router.param('model', modelFinder);
 
-router.use('/api/v1/doc', swagger.serve, swagger.setup(swaggerDocs));
 
 // API Routes
-router.get('/api/v1/:model', auth('read'), handleGetAll);
-router.post('/api/v1/:model', auth('create'), handlePost);
+router.get('/api/v1/:model', handleGetAll);
+router.post('/api/v1/:model', handlePost);
 
-router.get('/api/v1/:model/:id', auth('read'), handleGetOne);
-router.put('/api/v1/:model/:id', auth('update'), handlePut);
-router.delete('/api/v1/:model/:id', auth('delete'), handleDelete);
+router.get('/api/v1/:model/:id', handleGetOne);
+router.put('/api/v1/:model/:id', handlePut);
+router.delete('/api/v1/:model/:id', handleDelete);
+
 
 // Route Handlers
 
 /**
- * Fetches all records from a given model
+ * Fetches all records from a given model.
  * @example router.get('/api/v1/:model', handleGetAll);
  * @param req {object} Express Request Object (required params: model)
  * @param res {object} Express Response Object
  * @param next {function} Express middleware next()
  */
-function handleGetAll(request, response, next) {
+function handleGetAll(request,response,next) {
   request.model.get()
-    .then(data => {
+    .then( data => {
       const output = {
         count: data.length,
         results: data,
       };
+      Q.publish('database', 'get', output);
       response.status(200).json(output);
     })
-    .catch(next);
+    .catch( next );
 }
 
 /**
@@ -70,10 +59,13 @@ function handleGetAll(request, response, next) {
  * @param res {object} Express Response Object
  * @param next {function} Express middleware next()
  */
-function handleGetOne(request, response, next) {
+function handleGetOne(request,response,next) {
   request.model.get(request.params.id)
-    .then(result => response.status(200).json(result[0]))
-    .catch(next);
+    .then( result => {
+      Q.publish('database', 'get', result[0]);
+      response.status(200).json(result[0]); 
+    })
+    .catch( next );
 }
 
 /**
@@ -83,10 +75,13 @@ function handleGetOne(request, response, next) {
  * @param res {object} Express Response Object
  * @param next {function} Express middleware next()
  */
-function handlePost(request, response, next) {
+function handlePost(request,response,next) {
   request.model.post(request.body)
-    .then(result => response.status(200).json(result))
-    .catch(next);
+    .then( result => {
+      Q.publish('database', 'post', result);
+      response.status(200).json(result); 
+    })
+    .catch( next );
 }
 
 /**
@@ -96,10 +91,13 @@ function handlePost(request, response, next) {
  * @param res {object} Express Response Object
  * @param next {function} Express middleware next()
  */
-function handlePut(request, response, next) {
+function handlePut(request,response,next) {
   request.model.put(request.params.id, request.body)
-    .then(result => response.status(200).json(result))
-    .catch(next);
+    .then( result => {
+      Q.publish('database', 'put', result);
+      response.status(200).json(result); 
+    })
+    .catch( next );
 }
 
 /**
@@ -109,10 +107,13 @@ function handlePut(request, response, next) {
  * @param res {object} Express Response Object
  * @param next {function} Express middleware next()
  */
-function handleDelete(request, response, next) {
+function handleDelete(request,response,next) {
   request.model.delete(request.params.id)
-    .then(result => response.status(200).json(result))
-    .catch(next);
+    .then( result => {
+      Q.publish('database', 'delete', result);
+      response.status(200).json(result); 
+    })
+    .catch( next );
 }
 
 module.exports = router;

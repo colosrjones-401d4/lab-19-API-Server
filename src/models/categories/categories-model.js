@@ -1,6 +1,6 @@
 'use strict';
 
-const Model = require('../models/memory-model');
+const Model = require('../memory-model.js');
 
 const schema = {
   _id: {required:true},
@@ -8,3 +8,5 @@ const schema = {
 };
 
 class Categories extends Model {}
+
+module.exports = new Categories(schema);

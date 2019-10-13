@@ -1,7 +1,7 @@
 'use strict';
 /**
  * 404 Middleware
- * @module src/middleware/404
+ * @module middleware/404
  */
 
 /**

@@ -1,4 +1,3 @@
-'use strict';
 /**
  * Combines SuperTest and Mongoose Memory Server
  * to reduce (hopefully) the pain of
@@ -6,9 +5,7 @@
  */
 
 const mongoose = require('mongoose');
-const { default: MongoMemoryServer } = require('mongodb-memory-server');
-//Changes for supertest thru supergoose
-// module.exports = require('supertest');
+const MongoMemoryServer = require('mongodb-memory-server').default;
 const supertest = require('supertest');
 
 let mongoServer;
@@ -24,7 +21,7 @@ supergoose.server = (server) => supertest(server);
  * Typically used in Jest beforeAll hook
  */
 supergoose.startDB = async () => {
-
+  
   mongoServer = new MongoMemoryServer();
   
   const mongoUri = await mongoServer.getConnectionString();

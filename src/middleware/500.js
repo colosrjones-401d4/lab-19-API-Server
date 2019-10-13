@@ -2,7 +2,7 @@
 
 /**
  * 500 Middleware
- * @module src/middleware/500
+ * @module middleware/500
  */
 
 /**
@@ -13,7 +13,6 @@
  * @param next {function} Express middleware next()
  */
 module.exports = (err, req, res, next) => {
-  console.log('__SERVER_ERROR__');
-  let error = { error: err || err };
+  let error = { error: err };
   res.status(500).json(error).end();
 };
