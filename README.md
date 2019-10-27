@@ -1,12 +1,12 @@
 ## API & Auth Server 
 
-[![Build Status](https://travis-ci.org/colosrjones-401d4/lab-15.svg?branch=master)](https://travis-ci.org/colosrjones-401d4/lab-15)
+[![Build Status](https://travis-ci.org/colosrjones-401d4/lab-19-API-Server.svg?branch=master)](https://travis-ci.org/colosrjones-401d4/lab-19-API-Server)](https://travis-ci.org/colosrjones-401d4/lab-19-API-Server)
 
 ### Author: Steven Jones
 
 ### Links and Resources
-* [repo](https://github.com/colosrjones-401d4/lab-15)
-* [travis](https://travis-ci.org/colosrjones-401d4/lab-15)
+* [repo](https://github.com/colosrjones-401d4/lab-19-API-Server9)
+* [travis](https://travis-ci.org/colosrjones-401d4/lab-19-API-Server)
 
 
 ### Setup
