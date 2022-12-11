@@ -22,7 +22,7 @@
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "eslint": "^5.15.3",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "jest": "^25.0.0",
     "jsdoc": "^3.5.5",
     "jsonwebtoken": "^8.5.1",
